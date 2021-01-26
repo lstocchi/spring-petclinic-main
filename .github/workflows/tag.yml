@@ -1,0 +1,27 @@
+name: Create Archive
+on:
+  push:
+    tags:
+       - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Create changelogs
+      id: changelogs
+      uses: heineiuo/create-changelogs@master
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: '${{ steps.get_version.outputs.VERSION }}.zip'
+        exclusions: '*.git* .travis.yml'
+    - name: Upload Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: '${{ steps.get_version.outputs.VERSION }}.zip'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: 'Release ${{ steps.changelogs.outputs.changelogs }}'
