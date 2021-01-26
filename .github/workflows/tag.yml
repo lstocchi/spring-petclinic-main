@@ -8,13 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Generate changelog
-      uses: heinrichreimer/action-github-changelog-generator@v2.2
-      id: generate-release-changelog
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        stripHeaders: "true"
-        stripGeneratorNotice: "true"
+    - name: Changelog CI
+      uses: saadmk11/changelog-ci@v0.7.0
+    - run: |
+        IFS=
+        TEXT=$(cat CHANGELOG.md)
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
@@ -28,4 +26,4 @@ jobs:
       with:
         artifacts: '${{ steps.get_version.outputs.VERSION }}.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
-        body: 'Release ${{ steps.generate-release-changelog.outputs.changelog }}'
+        body: $TEXT
