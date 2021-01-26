@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: "✏️ Generate release changelog"
+    - name: Generate changelog optimized
+      uses: lstocchi/action-github-changelog-generator-optimized@0.0.1
       id: generate-release-changelog
-      uses: heinrichreimer/action-github-changelog-generator@v2.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         onlyLastTag: "true"
