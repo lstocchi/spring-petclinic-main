@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@master
     - name: "✏️ Generate release changelog"
       id: generate-release-changelog
-      uses: ./
+      uses: heinrichreimer/action-github-changelog-generator@v2.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         onlyLastTag: "true"
@@ -29,4 +29,4 @@ jobs:
       with:
         artifacts: '${{ steps.get_version.outputs.VERSION }}.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
-        body: ${{ steps.generate-release-changelog.outputs.changelog }}
+        body: 'Release ${{ steps.changelog.outputs.changelog }}'
