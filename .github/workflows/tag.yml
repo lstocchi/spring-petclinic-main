@@ -8,9 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Create changelogs
-      id: changelogs
-      uses: heineiuo/create-changelogs@master
+    - name: "✏️ Generate release changelog"
+      id: generate-release-changelog
+      uses: ./
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        onlyLastTag: "true"
+        stripHeaders: "true"
+        stripGeneratorNotice: "true"
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
@@ -24,4 +29,4 @@ jobs:
       with:
         artifacts: '${{ steps.get_version.outputs.VERSION }}.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
-        body: 'Release ${{ steps.changelogs.outputs.changelogs }}'
+        body: ${{ steps.generate-release-changelog.outputs.changelog }}
