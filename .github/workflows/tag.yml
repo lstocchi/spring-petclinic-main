@@ -9,6 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Generate release notes
+      id: create_release
       uses: raulanatol/github-actions-releaser@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,9 +21,11 @@ jobs:
       with:
         filename: '${{ steps.get_version.outputs.VERSION }}.zip'
         exclusions: '*.git* .travis.yml'
-    - name: Upload Release
-      uses: ncipollo/release-action@v1
+    - name: Attach vsix to release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        artifacts: '${{ steps.get_version.outputs.VERSION }}.zip'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        body: $TEXT
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: '${{ steps.get_version.outputs.VERSION }}.zip'
+        asset_name: '${{ steps.get_version.outputs.VERSION }}.zip'
