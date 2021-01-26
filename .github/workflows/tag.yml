@@ -8,12 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Generate changelog optimized
-      uses: lstocchi/action-github-changelog-generator-optimized@0.0.1
+    - name: Generate changelog
+      uses: heinrichreimer/action-github-changelog-generator@v2.2
       id: generate-release-changelog
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        onlyLastTag: "true"
         stripHeaders: "true"
         stripGeneratorNotice: "true"
     - name: Get the version
@@ -29,4 +28,4 @@ jobs:
       with:
         artifacts: '${{ steps.get_version.outputs.VERSION }}.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
-        body: 'Release ${{ steps.changelog.outputs.changelog }}'
+        body: 'Release ${{ steps.generate-release-changelog.outputs.changelog }}'
