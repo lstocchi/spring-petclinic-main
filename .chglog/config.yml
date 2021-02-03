@@ -1,0 +1,39 @@
+bin: git
+style: "github"
+template: CHANGELOG.tpl.md
+info:
+  title: CHANGELOG
+  repository_url: https://github.com/lstocchi/spring-petclinic-main
+
+options:
+  tag_filter_pattern: '^v'
+
+  commits:
+    filters:
+      Type:
+        - feat
+        - fix
+    sort_by: Subject
+
+  commit_groups:
+    group_by: Type
+    sort_by: Title
+    title_order:
+      - feat
+      - fix
+    title_maps:
+      feat: Features
+      fix: Bug Fixes
+
+  issues:
+    prefix:
+      - #
+
+  refs:
+    actions:
+      - Closes
+      - Fixes
+
+  notes:
+    keywords:
+      - BREAKING CHANGE
