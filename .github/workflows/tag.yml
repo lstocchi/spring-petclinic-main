@@ -12,7 +12,7 @@ jobs:
     # - name: Get the version
     #   id: get_version
     #   run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-    - uses: nuuday/github-changelog-action@v1.0.0
+    - uses: nuuday/github-changelog-action@v1.0.1
       id: create_changelog
       with:
         next_version: '0.0.10' 
