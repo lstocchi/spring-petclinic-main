@@ -8,7 +8,7 @@ Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) applicatio
 211ddsssddd
 
 ```
-git clone https://github.com/spring-projects/spring-petclinic.git
+git clone https://github.com/spring-projects/spring-petclinic.gitdsad
 cd spring-petclinic
 ./mvnw package
 java -jar target/*.jar
