@@ -19,7 +19,7 @@ jobs:
         current-tag: ${{ steps.get_version.outputs.VERSION }}
         commit-types: 'feat:Features,fix:Bug Fixes'
     - run: |
-        echo '${{ steps.changelog.outputs.clean_changelog }}'
+        echo '${{ steps.changelog.outputs.changelog }}'
     # - name: Create Release
     #   uses: actions/create-release@v1
     #   if: ${{ steps.changelog.outputs.skipped == 'false' }}
