@@ -15,7 +15,7 @@ jobs:
       uses: Helmisek/conventional-changelog-generator@v1.0.6-release
       id: changelog
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
         current-tag: ${{ steps.get_version.outputs.VERSION }}
         commit-types: 'feat:Features,fix:Bug Fixes'
     - run: |
