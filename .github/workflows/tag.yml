@@ -1,28 +1,25 @@
 name: Create Archive
 on:
-  push 
-  #:
-    # tags:
-    #    - '*'
+  push:
+    tags:
+       - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    # - name: Get the version
-    #   id: get_version
-    #   run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-    - name: Conventional Changelog Action
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+    - name: Conventional changelog generator
+      uses: Helmisek/conventional-changelog-generator@v1.0.6-release
       id: changelog
-      uses: TriPSs/conventional-changelog-action@v3
       with:
-        github-token: ${{ secrets.github_token }}
-        output-file: "false"
-        version-file: 'pom.xml'
-        version-path: '<version>'
-        skip-version-file: 'true'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        current-tag: ${{ steps.get_version.outputs.VERSION }}
+        commit-types: 'feat:Features,fix:Bug Fixes'
     - run: |
-        echo '${{ steps.changelog.outputs.tag }} - ${{ steps.changelog.outputs.clean_changelog }}'
+        echo '${{ steps.changelog.outputs.clean_changelog }}'
     # - name: Create Release
     #   uses: actions/create-release@v1
     #   if: ${{ steps.changelog.outputs.skipped == 'false' }}
