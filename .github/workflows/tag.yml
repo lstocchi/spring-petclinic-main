@@ -18,6 +18,9 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
         output-file: "false"
+        version-file: 'pom.xml'
+        version-path: '<version>'
+        skip-version-file: 'true'
     - run: |
         echo '${{ steps.changelog.outputs.tag }} - ${{ steps.changelog.outputs.clean_changelog }}'
     # - name: Create Release
