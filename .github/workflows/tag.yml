@@ -17,7 +17,7 @@ jobs:
       with:
         next_version: '0.0.10' 
         filename: 'CHANGELOG.md'
-        config_dir: "$GITHUB_WORKSPACE/.config_dir"
+        config_dir: $GITHUB_WORKSPACE/.config_dir
     - run: |
         echo '${{ steps.create_changelog.outputs.changelog }}'
     # - name: Create Release
