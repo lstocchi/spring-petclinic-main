@@ -17,7 +17,7 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         current-tag: ${{ steps.get_version.outputs.VERSION }}
-        commit-types: 'feat:Features,fix:Bug Fixes'
+        commit-types: 'feat:Features,fix:Bug Fixes,docs:Documentation'
     - run: |
         echo '${{ steps.changelog.outputs.changelog }}'
     - name: Create Release
