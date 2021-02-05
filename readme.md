@@ -8,9 +8,7 @@ Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) applicatio
 211ddsssdddsdasdsss
 ```dsadsa
 git clone https://github.com/spring-projects/spring-petclinic.gitdsads
-cd spring-petclinicdsadsada
-./mvnw package
-java -jar target/*.jardsadsadadsdsadsad
+cd spring-petcl
 ```
 
 You can then access petclinic here: http://localhost:8080/
