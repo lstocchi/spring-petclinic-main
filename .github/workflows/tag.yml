@@ -11,13 +11,13 @@ jobs:
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-    - name: Conventional changelog generator
-      uses: Helmisek/conventional-changelog-generator@v1.0.6-release
+    - name: Simple conventional changelog
+      uses: lstocchi/simple-conventional-changelog@0.0.1
       id: changelog
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         current-tag: ${{ steps.get_version.outputs.VERSION }}
-        commit-types: 'feat(UI):UI Features,feat:Features,fix:Bug Fixes,docs:Documentation'
+        commit-mapping: 'feat(UI):UI Features,feat:Features,fix:Bug Fixes,docs:Documentation'
     - run: |
         echo '${{ steps.changelog.outputs.changelog }}'
     - name: Create Release
